@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import Pokedex from '../components/Pokedex';
 
 const Home: React.FC = () => (
     <div className={styles.container}>
@@ -8,7 +9,10 @@ const Home: React.FC = () => (
             <title>Create Next App</title>
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        <h1>Hello World!</h1>
+        <main>
+            <h1>Pokemons</h1>
+            <Pokedex />
+        </main>
     </div>
 );
 
