@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
+
 import { myPokemons } from '../types';
 import styles from '../styles/Home.module.css';
-import Pokemon from './PokemonModal';
+import PokemonModal from './PokemonModal';
 
 interface props {
     pokemon: myPokemons
@@ -9,22 +11,33 @@ interface props {
 
 const Pokemons: React.FC<props> = ({ pokemon }: props) => {
     const [openModal, setOpenModal] = useState<Boolean>(false);
+    useEffect(() => { Modal.setAppElement('body'); }, []);
+
     return (
         <div className={styles.card} key={pokemon.id}>
             <img style={{ marginLeft: '130px' }} src={pokemon.sprite} alt={pokemon.name} />
             <h3 className={styles.title}>
                 {pokemon.name}
             </h3>
-            <button type="button" onClick={() => setOpenModal(!openModal)}>
+            <button type="button" onClick={() => setOpenModal(true)}>
                 More
             </button>
-            {openModal ? (
-                <Pokemon
-                    id={pokemon.id}
-                    name={pokemon.name}
-                    sprite={pokemon.sprite}
-                />
-            ) : null}
+            <Modal
+                isOpen={openModal}
+                onRequestClose={() => setOpenModal(false)}
+                contentLabel="Data"
+            >
+                <div>
+                    <button type="button" onClick={() => setOpenModal(false)}>
+                        X
+                    </button>
+                    <PokemonModal
+                        id={pokemon.id}
+                        name={pokemon.name}
+                        sprite={pokemon.sprite}
+                    />
+                </div>
+            </Modal>
         </div>
     );
 };
