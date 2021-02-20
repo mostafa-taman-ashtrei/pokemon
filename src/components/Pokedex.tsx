@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {
+    Wrap, WrapItem, Center,
+} from '@chakra-ui/react';
 
-import styles from '../styles/Home.module.css';
 import { myPokemons } from '../types';
 import Pokemons from './Pokemon';
 
@@ -26,11 +28,17 @@ const Pokedex: React.FC = () => {
     useEffect(() => { fetchPokemons(); }, []);
 
     return (
-        <div className={styles.grid}>
+        <Wrap spacing="40px" py="2" mx="9">
             {
-                pokemons.map((p) => (<Pokemons pokemon={p} key={p.id} />))
+                pokemons.map((p) => (
+                    <WrapItem>
+                        <Center w="290px" h="300px" mx="10">
+                            <Pokemons pokemon={p} key={p.id} />
+                        </Center>
+                    </WrapItem>
+                ))
             }
-        </div>
+        </Wrap>
     );
 };
 

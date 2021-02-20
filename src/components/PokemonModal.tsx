@@ -1,5 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+    Image, List, ListItem, ListIcon, Text, Divider,
+} from '@chakra-ui/react';
+import { CheckCircleIcon } from '@chakra-ui/icons';
 
 interface props {
     id: number,
@@ -33,59 +37,74 @@ const PokemonModal: React.FC<props> = ({ id, name, sprite }: props) => {
 
     return (
         <div>
-            <h1>{name}</h1>
-            <img style={{ marginLeft: '130px' }} src={sprite} alt={name} />
+            <Image
+                borderRadius="base"
+                boxSize="150px"
+                marginY="9"
+                marginX="28"
+                src={sprite}
+                alt={name}
+                background="gray.400"
+            />
 
-            <h3>General Data</h3>
+            <Text>General Data : </Text>
 
-            <ol>
-                <li>
+            <List spacing={1}>
+                <ListItem>
+                    <ListIcon as={CheckCircleIcon} color="green.500" />
                     height:
+                    {' '}
                     {pokemonData.height}
-                </li>
-                <li>
+                </ListItem>
+                <ListItem>
+                    <ListIcon as={CheckCircleIcon} color="green.500" />
                     weight:
+                    {' '}
                     {pokemonData.weight}
-                </li>
-                <li>
-                    base_experience:
-                    {pokemonData.base_experience}
-                </li>
-                <li>
+                </ListItem>
+                <ListItem>
+                    <ListIcon as={CheckCircleIcon} color="green.500" />
                     Species:
+                    {' '}
                     {pokemonData.species}
-                </li>
-            </ol>
+                </ListItem>
+            </List>
+
+            <Divider m="2" />
 
             {
                 pokemonData.abilities ? (
                     <>
-                        <h3>Abilities</h3>
-                        <ol>
+                        <Text>Abilities: </Text>
+                        <List spacing={1}>
                             {pokemonData.abilities.map((a) => (
-                                <li>
+                                <ListItem>
+                                    <ListIcon as={CheckCircleIcon} color="green.500" />
                                     {a.ability.name}
-                                </li>
+                                </ListItem>
                             ))}
-                        </ol>
+                        </List>
                     </>
                 ) : null
             }
 
+            <Divider m="2" />
+
             {
                 pokemonData.stats ? (
                     <>
-                        <h3>stats</h3>
-                        <ol>
+                        <Text>Stats: </Text>
+                        <List spacing={1}>
                             {pokemonData.stats.map((s) => (
-                                <li>
+                                <ListItem>
+                                    <ListIcon as={CheckCircleIcon} color="green.500" />
                                     {s.stat.name}
                                     :
                                     {' '}
                                     {s.base_stat}
-                                </li>
+                                </ListItem>
                             ))}
-                        </ol>
+                        </List>
                     </>
                 ) : null
             }
